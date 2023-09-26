@@ -9,5 +9,5 @@ public class SynderBackendApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SynderBackendApplication.class, args);
 	}
-
+	
 }
