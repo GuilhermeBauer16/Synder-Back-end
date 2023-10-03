@@ -6,11 +6,13 @@ public record UpdateClientDTO(
         @NotNull
         Long id,
 
-        String name,
+        String name ,
 
         String email,
 
-        String password,
+        String password ,
+
+
 
         String telephone){
 }

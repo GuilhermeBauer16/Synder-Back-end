@@ -5,6 +5,7 @@ import br.com.Synder.SynderBackend.domain.client.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -17,6 +18,8 @@ public class ClientController {
 
     @Autowired
     // private ClientService clientService;
+
+    private PasswordEncoder passwordEncoder;
     @GetMapping
     public ResponseEntity getAllClients() {
         var allClients = repository.findAll();
@@ -27,6 +30,7 @@ public class ClientController {
     @Transactional
     public ResponseEntity registerClient(@RequestBody @Valid RequestClientDTO data, UriComponentsBuilder uriBuilder) {
         Client newClient = new Client(data);
+        newClient.setPassword(passwordEncoder.encode(newClient.getPassword()));
         repository.save(newClient);
         var uri = uriBuilder.path("/client/{id}").buildAndExpand(newClient.getId()).toUri();
         return ResponseEntity.created(uri).body(new ClientDetail(newClient));
