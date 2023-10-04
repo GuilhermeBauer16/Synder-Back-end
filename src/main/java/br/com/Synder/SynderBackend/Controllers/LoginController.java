@@ -29,7 +29,7 @@ public class LoginController {
 
     @PostMapping
     public ResponseEntity login(@RequestBody @Valid ClientLoginAuthentication clientLoginAuthentication){
-        System.out.println("chegou aqui ");
+
         try {
             var authenticationToken = new UsernamePasswordAuthenticationToken(clientLoginAuthentication.email(), clientLoginAuthentication.password());
             var authentication = authenticationManager.authenticate(authenticationToken);
